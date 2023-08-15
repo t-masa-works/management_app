@@ -10,7 +10,7 @@ class TasksController < ApplicationController
   def create
     @task = Task.new(task_params)
     if @task.save
-      redirect_to tasks_path, notice: "保存に成功しました"
+      redirect_to task_path(@task), notice: "保存に成功しました"
     else
       flash.now[:danger] = '保存に失敗しました'
       render :new
