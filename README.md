@@ -1,24 +1,32 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Users
+|モデル名|カラム名         |データ型|
+|-------|---------------|------|
+|User   |user_name      |string|
+|       |email          |string|
+|       |password_digest|string|
 
-Things you may want to cover:
+## Tasks
 
-* Ruby version
+|モデル名 |カラム名    |データ型  |
+|-------|-----------|--------|
+|Task   |title      |string  |
+|       |content    |text    |
+|       |status     |boolean |
+|       |completion |boolean |
+|       |end_time   |datetime|
 
-* System dependencies
 
-* Configuration
+## Admins
+|モデル名|カラム名         |データ型|
+|-------|---------------|-------|
+|Admin  |admin_name     |string |
+|       |email          |string |
+|       |password_digest|string |
 
-* Database creation
+## Labels
 
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+|モデル名|カラム名|データ型|
+|-------|------|-------|
+|label  |label_name|string|

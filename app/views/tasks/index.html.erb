@@ -1,0 +1,27 @@
+<h1>一覧</h1>
+
+<%= link_to '新しいタスクを登録する', new_task_path %>
+
+<table>
+  <thead>
+    <tr>
+      <th>番号</th>
+      <th>タスク</th>
+      <th>内容</th>
+      <th colspan="3">アクセス</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @tasks.each.with_index(1) do |task, index| %>
+        <tr>
+          <td><%= index %></td>
+          <td><%= task.title %></td>
+          <td><%= task.content %></td>
+          <td><%= link_to '詳細を見る', task, data: { confirm: "#{index}のタスクを確認しますか？" } %></td>
+          <td><%= link_to '編集する', edit_task_path(task), data: { confirm: "#{index}のタスクを編集しますか？" } %></td>
+          <td><%= link_to '削除する', task, method: :delete, data: { confirm: "#{index}のタスクを削除してもいいですか？" } %></td>
+        </tr>
+    <% end %>
+  </tbody>
+</table>
