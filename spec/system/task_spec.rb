@@ -3,6 +3,7 @@ RSpec.describe 'タスク管理機能', type: :system do
 
   before do
     FactoryBot.create(:task)
+    FactoryBot.create(:second_task)
   end
 
   describe '新規作成機能' do
@@ -31,7 +32,8 @@ RSpec.describe 'タスク管理機能', type: :system do
      context '任意のタスク詳細画面に遷移した場合' do
        it '該当タスクの内容が表示される' do
         visit tasks_path
-        click_link '詳細を見る'
+        all('tbody tr')[1].click_link '詳細を見る'
+        # click_link '詳細を見る'
         page.driver.browser.switch_to.alert.accept
         expect(page).to have_content '内容'
        end
