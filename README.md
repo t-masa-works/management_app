@@ -48,4 +48,27 @@ gem 'net-pop'
 ```
 bundle install
 ```
+```
+git add .
+git commit -m""
+```
 
+- Heroku buildpack追加
+```
+$ heroku buildpacks:set heroku/ruby
+$ heroku buildpacks:add --index 1 heroku/nodejs
+```
+- PostgreSQLアドオン追加
+```
+$ heroku addons:create heroku-postgresql
+```
+- デプロイ
+```
+git push heroku step2:master
+```
+
+- エラー対処
+
+```
+$ heroku stack:set heroku-20
+```
