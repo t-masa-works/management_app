@@ -29,10 +29,12 @@ RSpec.describe 'タスク管理機能', type: :system do
   end
 
   context 'タスクが作成日時の降順に並んでいる場合' do
+    let!(:task3) { FactoryBot.create(:third_task)}
     it '新しいタスクが一番上に表示される' do
       visit tasks_path
-      task = all('tbody tr')
-      expect(page.text)
+      tasks = all('tbody tr')
+      tasks_text = tasks.first.text
+      expect(tasks_text).to include(task3.title)
     end
   end
 
@@ -40,7 +42,7 @@ RSpec.describe 'タスク管理機能', type: :system do
      context '任意のタスク詳細画面に遷移した場合' do
        it '該当タスクの内容が表示される' do
         visit tasks_path
-        all('tbody tr')[1].click_link '詳細を見る'
+        all('tbody tr')[1].click_link '詳細'
         # click_link '詳細を見る'
         page.driver.browser.switch_to.alert.accept
         expect(page).to have_content '内容'

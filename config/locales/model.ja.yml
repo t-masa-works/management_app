@@ -3,6 +3,5 @@ ja:
     models:
     task: タスク
   attributes:
-    task:
       title: タスク
       content: 内容
