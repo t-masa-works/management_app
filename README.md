@@ -9,12 +9,13 @@
 
 ## Tasks
 
-|モデル名 |カラム名    |データ型  |
+|モデル名 |カラム名    |データ型 |
 |-------|-----------|--------|
 |Task   |title      |string  |
 |       |content    |text    |
 |       |status     |boolean |
 |       |completion |boolean |
+|       |start_time |datetime|
 |       |end_time   |datetime|
 
 
