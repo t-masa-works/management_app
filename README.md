@@ -66,9 +66,29 @@ $ heroku addons:create heroku-postgresql
 ```
 git push heroku step2:master
 ```
-
-- エラー対処
-
+## エラー発生
+- エラー対処  
+Heroku stackバージョンエラー  
+バージョン切り替え　22→20
 ```
 $ heroku stack:set heroku-20
+```
+- Platform不足エラー  
+Platform追加
+```
+bundle lock --add-platform x86_64-linux
+```
+- node.jsエラー  
+package.jsonに追記
+```
+,
+  "engines": {
+    "node": "16.x"
+  }
+```
+コミット
+
+- 再デプロイ
+```
+git push heroku step2:master
 ```
