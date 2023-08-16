@@ -31,3 +31,21 @@
 |モデル名|カラム名|データ型|
 |-------|------|-------|
 |label  |label_name|string|
+
+
+
+## Heroku デプロイ手順
+- herokuにアプリケーションを作成
+```
+$ heroku create
+```
+- gemの追加
+```
+gem 'net-smtp'
+gem 'net-imap'
+gem 'net-pop'
+```
+```
+bundle install
+```
+
