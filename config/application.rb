@@ -6,6 +6,7 @@ Bundler.require(*Rails.groups)
 
 module ManagementApp
   class Application < Rails::Application
+    config.time_zone = 'Tokyo'
     config.load_defaults 6.1
     config.generators do |g|
       g.test_framework :rspec,

@@ -1,0 +1,7 @@
+ja:
+  activerecord:
+    models:
+    task: タスク
+  attributes:
+      title: タスク
+      content: 内容
