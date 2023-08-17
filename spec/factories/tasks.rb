@@ -4,16 +4,25 @@ FactoryBot.define do
   factory :task do
     title { 'task' }
     content { 'test_content' }
+    end_time { '002023-08-01T00:00'}
   end
   # 作成するテストデータの名前を「second_task」とします
   # （存在しないクラス名の名前をつける場合、オプションで「このクラスのテストデータにしてください」と指定します）
   factory :second_task, class: Task do
     title { 'task2' }
     content { 'test_content2' }
+  end_time { '002023-8-15T00:00'}
 
   factory :third_task, class: Task do
     title { 'task3' }
     content { 'test_content3' }
+   end_time { '002023-08-30T00:00'}
+
+   factory :fourth_task, class: Task do
+    title { 'task4' }
+    content { 'test_content4' }
+   end_time { '002023-09-30T00:00'}
+   end
 
     end
   end

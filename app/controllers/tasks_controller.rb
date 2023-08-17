@@ -1,6 +1,10 @@
 class TasksController < ApplicationController
   def index
     @tasks = Task.all.order(created_at: :desc)
+
+    if params[:task_limit]
+      @tasks = Task.task_limit
+    end
   end
 
   def new
@@ -48,7 +52,7 @@ class TasksController < ApplicationController
   end
 
   def task_params
-    params.require(:task).permit(:title, :content)
+    params.require(:task).permit(:title, :content, :end_time)
   end
 
 end

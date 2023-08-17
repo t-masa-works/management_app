@@ -12,6 +12,7 @@ RSpec.describe 'タスク管理機能', type: :system do
         visit new_task_path
         fill_in "タスク", with: 'New Task'
         fill_in "内容", with: 'New Task'
+        fill_in "終了期限", with: '002023-09-01T00:00'
         click_on 'タスクを保存'
         page.driver.browser.switch_to.alert.accept
         expect(page).to have_content 'New Task'
@@ -38,15 +39,26 @@ RSpec.describe 'タスク管理機能', type: :system do
     end
   end
 
+  context '終了期限の降順でソートした場合' do
+    let!(:task4) { FactoryBot.create(:fourth_task)}
+    it '終了期限が一番遅いタスクが一番上に表示される' do
+      visit tasks_path
+      click_link '終了期限でソート'
+      tasks = all('tbody tr', wait: 20)
+      tasks_text = tasks.first.text
+      expect(tasks_text).to include(task4.title)
+    end
+  end
+
   describe '詳細表示機能' do
-     context '任意のタスク詳細画面に遷移した場合' do
-       it '該当タスクの内容が表示される' do
+    context '任意のタスク詳細画面に遷移した場合' do
+      it '該当タスクの内容が表示される' do
         visit tasks_path
         all('tbody tr')[1].click_link '詳細'
         # click_link '詳細を見る'
         page.driver.browser.switch_to.alert.accept
         expect(page).to have_content '内容'
-       end
-     end
+      end
+    end
   end
 end

@@ -5,3 +5,4 @@ ja:
   attributes:
       title: タスク
       content: 内容
+      end_time: 終了期限

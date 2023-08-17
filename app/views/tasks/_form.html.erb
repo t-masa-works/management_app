@@ -17,6 +17,10 @@
     <%= form.label :content %></br>
     <%= form.text_area :content %>
   </div>
+    <div class="task_content">
+    <%= form.label :end_time %></br>
+    <%= form.datetime_field :end_time %>
+  </div>
 
   <%= form.submit "タスクを保存", data: {confirm: "タスクを保存してもいいですか？"} %>
   <%= link_to "タスク一覧に戻る", tasks_path %>
