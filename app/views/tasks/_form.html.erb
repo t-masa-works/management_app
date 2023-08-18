@@ -21,6 +21,12 @@
     <%= form.label :end_time %></br>
     <%= form.datetime_field :end_time %>
   </div>
+  </div>
+    <div class="task_content">
+    <%= form.label :status %></br>
+    <%= form.select :status, Task.enum_options_for_select(:status) %>
+  </div>
+
 
   <%= form.submit "タスクを保存", data: {confirm: "タスクを保存してもいいですか？"} %>
   <%= link_to "タスク一覧に戻る", tasks_path %>

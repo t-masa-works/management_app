@@ -3,6 +3,10 @@ ja:
     models:
     task: タスク
   attributes:
-      title: タスク
-      content: 内容
-      end_time: 終了期限
+          title: タスク
+          content: 内容
+          end_time: 終了期限
+          status: ステータス
+          not_started: 未着手
+          in_progress: 進行中
+          completed: 完了
