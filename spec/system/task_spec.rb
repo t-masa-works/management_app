@@ -35,13 +35,23 @@ RSpec.describe 'タスク管理機能', type: :system do
     context 'ステータス検索をした場合' do
       it "ステータスに完全一致するタスクが絞り込まれる" do
         # ここに実装する
+        visit tasks_path
+        select '完了', from:'task_status'
+        # find("option[value='completed']").select_option
         # プルダウンを選択する「select」について調べてみること
+        click_button 'Search'
+        expect(page).to have_content '完了'
       end
     end
     
     context 'タイトルのあいまい検索とステータス検索をした場合' do
       it "検索キーワードをタイトルに含み、かつステータスに完全一致するタスク絞り込まれる" do
-        # ここに実装する
+        visit tasks_path
+        fill_in 'search_input', with: 'task'
+        find("option[value='completed']").select_option
+        click_button 'Search'
+        expect(page).to have_content '完了'
+        expect(page).to have_content 'task'
       end
     end
   end
@@ -70,7 +80,7 @@ RSpec.describe 'タスク管理機能', type: :system do
     it '終了期限が一番遅いタスクが一番上に表示される' do
       visit tasks_path
       click_link '終了期限でソート'
-      tasks = all('tbody tr', wait: 20)
+      tasks = all('tbody tr', wait: 30)
       tasks_text = tasks.first.text
       expect(tasks_text).to include(task4.title)
     end

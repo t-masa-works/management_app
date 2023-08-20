@@ -13,7 +13,7 @@ FactoryBot.define do
     title { 'task2' }
     content { 'test_content2' }
     end_time { '002023-8-15T00:00'}
-    status { :in_progress }
+    status { :completed }
 
     factory :third_task, class: Task do
       title { 'task3' }
