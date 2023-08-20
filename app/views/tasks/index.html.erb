@@ -4,8 +4,8 @@
 <%= link_to "終了期限でソート", tasks_path(task_limit: "true") %>
 
 <%= form_with url: tasks_path, scope: :task, method: :get, local: true do |form| %>
-  <%= form.text_field :search %>
-  <%= form.select :status, Task.enum_options_for_select(:status), include_blank: true  %>
+  <%= form.text_field :search , id: 'search_input' %>
+  <%= form.select :status, Task.enum_options_for_select(:status), include_blank: true %>
   <%= form.submit 'Search', name: nil %>
 <% end %>
 

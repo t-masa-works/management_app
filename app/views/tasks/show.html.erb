@@ -2,5 +2,7 @@
 
 <p><%= t('view.title') %>：<%= @task.title %></p>
 <p><%= t('view.content') %>：<%= @task.content %></p>
+<p><%= t('view.end_time') %>：<%= format_datetime(@task.end_time) %></p>
+<p><%= t('view.status') %>：<%= @task.human_attribute_enum(:status) %></p>
 
 <%= link_to t('view.list'), tasks_path %>

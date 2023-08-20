@@ -13,9 +13,35 @@ RSpec.describe 'タスク管理機能', type: :system do
         fill_in "タスク", with: 'New Task'
         fill_in "内容", with: 'New Task'
         fill_in "終了期限", with: '002023-09-01T00:00'
+        select '完了', from:'ステータス'
         click_on 'タスクを保存'
         page.driver.browser.switch_to.alert.accept
-        expect(page).to have_content 'New Task'
+        expect(page).to have_content '完了'
+      end
+    end
+  end
+
+  describe '検索機能' do
+    context 'タイトルであいまい検索をした場合' do
+      it "検索キーワードを含むタスクで絞り込まれる" do
+        visit tasks_path
+        # タスクの検索欄に検索ワードを入力する (例: task)
+        fill_in 'search_input', with: 'task'
+        click_button 'Search'
+        expect(page).to have_content 'task'
+      end
+    end
+
+    context 'ステータス検索をした場合' do
+      it "ステータスに完全一致するタスクが絞り込まれる" do
+        # ここに実装する
+        # プルダウンを選択する「select」について調べてみること
+      end
+    end
+    
+    context 'タイトルのあいまい検索とステータス検索をした場合' do
+      it "検索キーワードをタイトルに含み、かつステータスに完全一致するタスク絞り込まれる" do
+        # ここに実装する
       end
     end
   end
