@@ -5,11 +5,11 @@ class TasksController < ApplicationController
     if params[:task_limit]
       @tasks = Task.task_limit
     elsif params[:task] && params[:task][:search].present? && params[:task][:status].present?
-      @tasks = @tasks.where('title LIKE ?', "%#{params[:task][:search]}%").where(status: params[:task][:status])
+      @tasks = Task.task_and_status(params[:task][:search], params[:task][:status])
     elsif params[:task].present? && params[:task][:search].present?
-      @tasks = @tasks.where('title LIKE ?', "%#{params[:task][:search]}%")
+      @tasks = Task.with_title(params[:task][:search])
     elsif params[:task].present? && params[:task][:status].present?
-      @tasks = @tasks.where(status: params[:task][:status])
+      @tasks = Task.with_status(params[:task][:status])
     end
   end
 
