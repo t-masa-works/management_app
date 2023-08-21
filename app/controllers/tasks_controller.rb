@@ -1,11 +1,11 @@
 class TasksController < ApplicationController
   def index
-    @tasks = Task.all.order(created_at: :desc)
+    @tasks = Task.all.order(created_at: :desc).page(params[:page]).per(10)
 
     if params[:task_limit]
-      @tasks = Task.task_limit
+      @tasks = Task.task_limit.page(params[:page]).per(10)
     elsif params[:rank]
-      @tasks = Task.rank
+      @tasks = Task.rank.page(params[:page]).per(10)
     elsif params[:task] && params[:task][:search].present? && params[:task][:status].present?
       @tasks = Task.task_and_status(params[:task][:search], params[:task][:status])
     elsif params[:task].present? && params[:task][:search].present?
