@@ -6,7 +6,7 @@ FactoryBot.define do
     content { 'test_content' }
     end_time { '002023-08-01T00:00'}
     status { :not_started }
-    priority { :row }
+    priority { :low }
   end
   # 作成するテストデータの名前を「second_task」とします
   # （存在しないクラス名の名前をつける場合、オプションで「このクラスのテストデータにしてください」と指定します）

@@ -14,6 +14,6 @@ ja:
         in_progress: 進行中
         completed: 完了
       task/priority:
-        row: 低
+        low: 低
         medium: 中
         high: 高
