@@ -4,6 +4,8 @@ class TasksController < ApplicationController
 
     if params[:task_limit]
       @tasks = Task.task_limit
+    elsif params[:rank]
+      @tasks = Task.rank
     elsif params[:task] && params[:task][:search].present? && params[:task][:status].present?
       @tasks = Task.task_and_status(params[:task][:search], params[:task][:status])
     elsif params[:task].present? && params[:task][:search].present?
@@ -58,7 +60,7 @@ class TasksController < ApplicationController
   end
 
   def task_params
-    params.require(:task).permit(:title, :content, :end_time, :status)
+    params.require(:task).permit(:title, :content, :end_time, :status, :priority)
   end
 
 end

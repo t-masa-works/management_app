@@ -86,6 +86,17 @@ RSpec.describe 'タスク管理機能', type: :system do
     end
   end
 
+  context '優先度の降順でソートした場合' do
+    let!(:task4) { FactoryBot.create(:fourth_task)}
+    it '優先度が一番高いタスクが一番上に表示される' do
+      visit tasks_path
+      click_link '優先順位でソート'
+      tasks = all('tbody tr', wait: 30)
+      tasks_text = tasks.first.text
+      expect(tasks_text).to have_content '高'
+    end
+  end
+
   describe '詳細表示機能' do
     context '任意のタスク詳細画面に遷移した場合' do
       it '該当タスクの内容が表示される' do

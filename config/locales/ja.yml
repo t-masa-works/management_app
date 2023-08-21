@@ -14,10 +14,6 @@ ja:
         title:
         content: 内容
         status: ステータス
-        # statuses:
-        # not_started: 未着手
-        # in_progress: 進行中
-        # completed: 完了
   date:
     abbr_day_names:
     - 日
@@ -202,3 +198,5 @@ ja:
     New Task: 新規のタスク
     access: アクセス
     end_time: 終了期限
+    status: ステータス
+    priority: 優先度
