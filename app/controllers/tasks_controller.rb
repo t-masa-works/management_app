@@ -7,11 +7,11 @@ class TasksController < ApplicationController
     elsif params[:rank]
       @tasks = Task.rank.page(params[:page]).per(10)
     elsif params[:task] && params[:task][:search].present? && params[:task][:status].present?
-      @tasks = Task.task_and_status(params[:task][:search], params[:task][:status])
+      @tasks = Task.task_and_status(params[:task][:search], params[:task][:status]).page(params[:page]).per(10)
     elsif params[:task].present? && params[:task][:search].present?
-      @tasks = Task.with_title(params[:task][:search])
+      @tasks = Task.with_title(params[:task][:search]).page(params[:page]).per(10)
     elsif params[:task].present? && params[:task][:status].present?
-      @tasks = Task.with_status(params[:task][:status])
+      @tasks = Task.with_status(params[:task][:status]).page(params[:page]).per(10)
     end
   end
 
