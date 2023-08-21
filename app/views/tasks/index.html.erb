@@ -5,11 +5,11 @@
 <%= link_to "優先順位でソート", tasks_path(rank: "true"), class: "btn btn-danger" %>
 
 <%= form_with url: tasks_path, scope: :task, method: :get, local: true do |form| %>
-<div class="row justify-content-md-center">
-  <%= form.text_field :search , id: 'search_input', class: "form-control form-control-lg col-md-4" %>
-  <%= form.select :status, Task.enum_options_for_select(:status), include_blank: true, class: "col-md-3" %>
-  <%= form.submit 'Search', name: nil %>
-</div>
+  <div class="row justify-content-md-center">
+    <%= form.text_field :search , id: 'search_input', placeholder: 'タスク名', class: "form-control form-control-lg col-md-4" %>
+    <%= form.select :status, Task.enum_options_for_select(:status), include_blank: true, class: "col-md-3" %>
+    <%= form.submit 'Search', name: nil %>
+  </div>
 <% end %>
 
 <table class="mt-5">
@@ -27,17 +27,17 @@
 
   <tbody>
     <% @tasks.each.with_index(1) do |task, index| %>
-        <tr>
-          <td class="display-4"><%= index %></td>
-          <td><%= task.title %></td>
-          <td><%= task.content %></td>
-          <td><%= format_datetime(task.end_time) %></td>
-          <td><%= task.human_attribute_enum(:status) %></td>
-          <td class="<%= priority_class(task.priority) %> display-4"><%= task.human_attribute_enum(:priority) %></td>
-          <td><%= link_to t('view.show'), task, data: { confirm: "#{index}のタスクを確認しますか？" } %></td>
-          <td><%= link_to t('view.edit'), edit_task_path(task), data: { confirm: "#{index}のタスクを編集しますか？" } %></td>
-          <td><%= link_to t('view.delete'), task, method: :delete, data: { confirm: "#{index}のタスクを削除してもいいですか？" } %></td>
-        </tr>
+      <tr>
+        <td class="display-4"><%= index %></td>
+        <td><%= task.title %></td>
+        <td><%= task.content %></td>
+        <td><%= format_datetime(task.end_time) %></td>
+        <td><%= task.human_attribute_enum(:status) %></td>
+        <td class="<%= priority_class(task.priority) %> display-4"><%= task.human_attribute_enum(:priority) %></td>
+        <td><%= link_to t('view.show'), task, data: { confirm: "#{index}のタスクを確認しますか？" } %></td>
+        <td><%= link_to t('view.edit'), edit_task_path(task), data: { confirm: "#{index}のタスクを編集しますか？" } %></td>
+        <td><%= link_to t('view.delete'), task, method: :delete, data: { confirm: "#{index}のタスクを削除してもいいですか？" } %></td>
+      </tr>
     <% end %>
   </tbody>
 </table>
