@@ -8,16 +8,30 @@
         <% end %>
       </ul>
   <% end %>
-  </div>
-  <div class="task_title">
-    <%= form.label :title %></br>
-    <%= form.text_field :title %>
-  </div>
-  <div class="task_content">
-    <%= form.label :content %></br>
-    <%= form.text_area :content %>
-  </div>
+    </div>
+  <table>
+    <tr>
+      <td><%= form.label :title %></td>
+      <td><%= form.text_field :title %></td>
+    </tr>
+    <tr>
+      <td><%= form.label :content %></td>
+      <td><%= form.text_area :content %></td>
+    </tr>
+    <tr>
+      <td><%= form.label :end_time %></td>
+      <td><%= form.datetime_field :end_time %></td>
+    </tr>
+    <tr>
+      <td><%= form.label :status %></td>
+      <td><%= form.select :status, Task.enum_options_for_select(:status) %></td>
+    </tr>
+    <tr>
+      <td><%= form.label :priority %></td>
+      <td><%= form.select :priority, Task.enum_options_for_select(:priority) %></td>
+    </tr>
+  </table>
 
-  <%= form.submit "タスクを保存", data: {confirm: "タスクを保存してもいいですか？"} %>
-  <%= link_to "タスク一覧に戻る", tasks_path %>
+  <p class="mt-4"><%= form.submit "タスクを保存", data: {confirm: "タスクを保存してもいいですか？"} %></p>
+  <p><%= link_to "タスク一覧に戻る", tasks_path %></p>
 <% end %>
