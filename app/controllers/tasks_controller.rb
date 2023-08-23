@@ -1,17 +1,17 @@
 class TasksController < ApplicationController
   def index
-    @tasks = Task.all.order(created_at: :desc).page(params[:page]).per(10)
+    @tasks = current_user.tasks.page(params[:id]).per(10)
 
     if params[:task_limit]
-      @tasks = Task.task_limit.page(params[:page]).per(10)
+      @tasks = current_user.tasks.task_limit.page(params[:page]).per(10)
     elsif params[:rank]
-      @tasks = Task.rank.page(params[:page]).per(10)
+      @tasks = current_user.tasks.rank.page(params[:page]).per(10)
     elsif params[:task] && params[:task][:search].present? && params[:task][:status].present?
-      @tasks = Task.task_and_status(params[:task][:search], params[:task][:status]).page(params[:page]).per(10)
+      @tasks = current_user.tasks.task_and_status(params[:task][:search], params[:task][:status]).page(params[:page]).per(10)
     elsif params[:task].present? && params[:task][:search].present?
-      @tasks = Task.with_title(params[:task][:search]).page(params[:page]).per(10)
+      @tasks = current_user.tasks.with_title(params[:task][:search]).page(params[:page]).per(10)
     elsif params[:task].present? && params[:task][:status].present?
-      @tasks = Task.with_status(params[:task][:status]).page(params[:page]).per(10)
+      @tasks = current_user.tasks.with_status(params[:task][:status]).page(params[:page]).per(10)
     end
   end
 
@@ -20,7 +20,7 @@ class TasksController < ApplicationController
   end
 
   def create
-    @task = Task.new(task_params)
+    @task = current_user.tasks.build(task_params)
     if @task.save
       redirect_to task_path(@task), notice: "保存に成功しました"
     else
