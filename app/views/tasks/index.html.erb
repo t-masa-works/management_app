@@ -31,9 +31,9 @@
         <td class="display-4"><%= index %></td>
         <td><%= task.title %></td>
         <td><%= task.content %></td>
-        <td><%= format_datetime(task.end_time) %></td>
+        <td><%= l task.end_time %></td>
         <td><%= task.human_attribute_enum(:status) %></td>
-        <td class="<%= priority_class(task.priority) %> display-4"><%= task.human_attribute_enum(:priority) %></td>
+        <td class="<%= priority_class(task.priority) %> display-4" ><%= task.priority%></td>
         <td><%= link_to t('view.show'), task, data: { confirm: "#{index}のタスクを確認しますか？" } %></td>
         <td><%= link_to t('view.edit'), edit_task_path(task), data: { confirm: "#{index}のタスクを編集しますか？" } %></td>
         <td><%= link_to t('view.delete'), task, method: :delete, data: { confirm: "#{index}のタスクを削除してもいいですか？" } %></td>
