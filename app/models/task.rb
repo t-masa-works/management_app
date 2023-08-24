@@ -9,7 +9,6 @@ class Task < ApplicationRecord
   enum priority: { low: 0, medium: 1, high: 2 }
 
   scope :task_limit, -> { order(end_time: :desc) }
-  scope :user_tasks, -> (name) { where(name: name) }
   scope :rank, -> { order(priority: :desc) }
   scope :with_title, -> (title) { where('title LIKE ?', "%#{title}%") }
   scope :with_status, -> (status) { where(status: status) }

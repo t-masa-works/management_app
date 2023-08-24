@@ -3,6 +3,7 @@
 <%= link_to t('view.New Task'), new_task_path, class: "btn btn-info" %>
 <%= link_to "終了期限でソート", tasks_path(task_limit: "true"), class: "btn btn-warning m-5" %>
 <%= link_to "優先順位でソート", tasks_path(rank: "true"), class: "btn btn-danger" %>
+<%= link_to "自分のタスクのみ表示", tasks_path(user_tasks: "true"), class: "btn btn-danger" %>
 
 <%= form_with url: tasks_path, scope: :task, method: :get, local: true do |form| %>
   <div class="row justify-content-md-center">

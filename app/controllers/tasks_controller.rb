@@ -1,9 +1,13 @@
 class TasksController < ApplicationController
+
+  skip_before_action :logged_in, only:[:new]
   def index
-    @tasks = current_user.tasks.page(params[:id]).per(10)
+    @tasks = Task.all.order(created_at: :desc).page(params[:page]).per(10)
 
     if params[:task_limit]
-      @tasks = current_user.tasks.task_limit.page(params[:page]).per(10)
+      @tasks = current_user.tasks.task_limit.page(params[:id]).per(10)
+    elsif params[:user_tasks]
+      @tasks = current_user.tasks.page(params[:page]).per(10)
     elsif params[:rank]
       @tasks = current_user.tasks.rank.page(params[:page]).per(10)
     elsif params[:task] && params[:task][:search].present? && params[:task][:status].present?
