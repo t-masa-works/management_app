@@ -1,0 +1,24 @@
+<h1>管理者ページ</h1>
+
+<table class="mt-5">
+  <thead>
+    <tr>
+      <th>番号</th>
+      <th><%= t 'view.name'  %></th>
+      <th><%= t 'view.email'  %></th>
+      <th colspan="2"><%= t 'view.access'  %></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @users.each.with_index(1) do |user, index| %>
+      <tr>
+        <td class="display-4"><%= index %></td>
+        <td><%= user.name %></td>
+        <td><%= user.email %></td>
+        <td><%= link_to t('view.show'), user, data: { confirm: "#{index}のタスクを確認しますか？" } %></td>
+        <td><%= link_to t('view.delete'), user, method: :delete, data: { confirm: "#{index}のタスクを削除してもいいですか？" } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

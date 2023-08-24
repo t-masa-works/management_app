@@ -15,31 +15,39 @@
   </head>
 
   <body>
-    <nav class="navbar navbar-light bg-dark ">
+    <nav class="navbar navbar-light bg-dark">
       <div class="container-fluid">
-        <a class="navbar-brand text-light" href="#">タスク管理</a>
-      </div>
+        <a class="navbar-brand text-light">タスク管理</a>
       <div class="login_user ml-auto text-light">
         <% if logged_in? %>
-          <p class="text-center">ログインユーザー：<%= current_user.name %></p>
+          <% if current_user.admin? %>
+            <p class="text-center mb-0">管理者：<%= current_user.name %></p>
+          <% else %>
+            <p class="text-center mb-0">ログインユーザー：<%= current_user.name %></p>
+          <% end %>
         <% else %>
-          <p class="text-center">ようこそ</p>
+          <p class="text-center mb-0">ようこそ</p>
         <% end %>
+      </div>
       </div>
     </nav>
 
     <% flash.each do |key, value| %>
       <%= content_tag(:div,value, class:"#{key}") %>
     <% end %>
-
+  <div class="info text-left">
     <% if logged_in? %>
-      <%= link_to "Profile", user_path(current_user.id) %>
+    <div class="info-item flex">
+      <%= link_to "Profile", user_path(current_user.id), class: "m-5" %>
       <%= link_to "Logout", session_path(current_user.id), method: :delete %>
+    </div>
     <% else %>
+    <div class="info-item flex">
       <%= link_to "Sign up", new_user_path %>
       <%= link_to "Login", new_session_path %>
+    </div>
     <% end %>
-
+  </div>
     <%= yield %>
   </body>
 </html>

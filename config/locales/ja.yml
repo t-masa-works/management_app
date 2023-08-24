@@ -200,3 +200,5 @@ ja:
     end_time: 終了期限
     status: ステータス
     priority: 優先度
+    name: 名前
+    email: Eメール
