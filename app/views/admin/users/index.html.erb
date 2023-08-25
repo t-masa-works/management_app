@@ -1,23 +1,56 @@
 <h1>管理者ページ</h1>
 
+
 <table class="mt-5">
   <thead>
     <tr>
-      <th>番号</th>
       <th><%= t 'view.name'  %></th>
       <th><%= t 'view.email'  %></th>
+      <th><%= "登録タスク数" %></th>
+      <th><%= "管理者権限" %></th>
       <th colspan="2"><%= t 'view.access'  %></th>
     </tr>
   </thead>
 
   <tbody>
-    <% @users.each.with_index(1) do |user, index| %>
+    <% @users.eager_load(:tasks).each.with_index(1) do |user, index| %>
       <tr>
-        <td class="display-4"><%= index %></td>
-        <td><%= user.name %></td>
-        <td><%= user.email %></td>
-        <td><%= link_to t('view.show'), user, data: { confirm: "#{index}のタスクを確認しますか？" } %></td>
-        <td><%= link_to t('view.delete'), user, method: :delete, data: { confirm: "#{index}のタスクを削除してもいいですか？" } %></td>
+        <% if user.admin == true %>
+          <td><%= user.name %></td>
+          <td><%= user.email %></td>
+          <td><%= user.tasks.size %></td>
+          <td><%= user.admin %></td>
+          <td><%= link_to t('view.show'), user, data: { confirm: "#{index}の詳細を確認しますか？" } %></td>
+          <td><%= link_to t('view.delete'), user, method: :delete, data: { confirm: "#{index}のユーザーを削除してもいいですか？" } %></td>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+
+<table class="mt-5">
+  <thead>
+    <tr>
+      <th><%= t 'view.name'  %></th>
+      <th><%= t 'view.email'  %></th>
+      <th><%= "登録タスク数" %></th>
+      <th><%= "管理者権限" %></th>
+      <th colspan="2"><%= t 'view.access'  %></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @users.eager_load(:tasks).each.with_index(1) do |user, index| %>
+      <tr>
+        <% if user.admin == false %>
+          <td><%= user.name %></td>
+          <td><%= user.email %></td>
+          <td><%= user.tasks.size %></td>
+          <td><%= user.admin %></td>
+          <td><%= link_to t('view.show'), user, data: { confirm: "#{index}の詳細を確認しますか？" } %></td>
+          <td><%= link_to t('view.delete'), user, method: :delete, data: { confirm: "#{index}のユーザーを削除してもいいですか？" } %></td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>
