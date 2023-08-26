@@ -41,6 +41,9 @@
       <%= link_to "Profile", user_path(current_user.id), class: "m-5" %>
       <%= link_to "Logout", session_path(current_user.id), method: :delete %>
     </div>
+      <% if current_user.admin? %>
+        <%= link_to 'ユーザー管理ページへ', admin_users_path, class: "m-4 btn btn-info" %>
+      <% end %>
     <% else %>
     <div class="info-item flex">
       <%= link_to "Sign up", new_user_path %>

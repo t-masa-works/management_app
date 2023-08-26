@@ -20,11 +20,6 @@ class UsersController < ApplicationController
     @task = @user.tasks.order(priority: :desc).page(params[:page]).per(5)
   end
 
-
-  def destroy
-    set_user
-  end
-
   private
 
   def set_user

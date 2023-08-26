@@ -3,7 +3,7 @@ class Admin::UsersController < ApplicationController
   skip_before_action :logged_in
 
   def index
-    @users = User.all.order(created_at: :desc)
+    @users = User.all.order(created_at: :desc).page(params[:page]).per(10)
   end
 
   def new
@@ -25,18 +25,23 @@ class Admin::UsersController < ApplicationController
 
   def update
     set_admin
-    if @task.update(admin_params)
-      redirect_to admin_user_path, notice: "ユーザー情報を更新しました"
-     else
+    if @user.update(params_admin)
+      redirect_to admin_users_path, notice: "ユーザー情報を更新しました"
+    else
       flash.now[:danger] = '更新に失敗しました'
       render :edit
-     end
+    end
   end
 
   def destroy
     set_admin
-    @user.destroy
-    flash[:success] = "削除しました"
+    if @user.destroy
+      flash[:success] = "削除しました"
+      redirect_to admin_users_path
+    else
+      flash[:alert] = "削除に失敗しました"
+      redirect_to admin_users_path
+    end
   end
 
   private
