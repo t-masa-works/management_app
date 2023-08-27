@@ -11,8 +11,9 @@
   </div>
 <% end %>
 
-<table>
+
   <%= form_with(model:[:admin, @user], local: true) do |f| %>
+  <table>
   <tr>
     <td><%= f.label :name %></td>
     <td><%= f.text_field :name %></td>

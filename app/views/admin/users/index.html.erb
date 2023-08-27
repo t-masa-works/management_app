@@ -7,6 +7,7 @@
   <h2 class ="mt-5">管理者</h2>
   <thead>
     <tr>
+      <th><%= "ID" %></th>
       <th><%= t 'view.name'  %></th>
       <th><%= t 'view.email'  %></th>
       <th><%= "登録タスク数" %></th>
@@ -19,6 +20,7 @@
     <% @users.eager_load(:tasks).each.with_index(1) do |user, index| %>
       <tr>
         <% if user.admin == true %>
+          <td><%= user.id %></td>
           <td><%= user.name %></td>
           <td><%= user.email %></td>
           <td><%= user.tasks.size %></td>
@@ -35,6 +37,7 @@
   <h2 class="mt-5">一般ユーザー</h2>
   <thead>
     <tr>
+      <th><%= "ID" %></th>
       <th><%= t 'view.name'  %></th>
       <th><%= t 'view.email'  %></th>
       <th><%= "登録タスク数" %></th>
@@ -47,6 +50,7 @@
     <% @users.eager_load(:tasks).each.with_index(1) do |user, index| %>
       <tr>
         <% if user.admin == false %>
+          <td><%= user.id %></td>
           <td><%= user.name %></td>
           <td><%= user.email %></td>
           <td><%= user.tasks.size %></td>

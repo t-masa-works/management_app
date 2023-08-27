@@ -1,5 +1,5 @@
 class Admin::UsersController < ApplicationController
-  before_action :admin_user
+  # before_action :admin_user
   skip_before_action :logged_in
 
   def index
@@ -26,22 +26,25 @@ class Admin::UsersController < ApplicationController
   def update
     set_admin
     if @user.update(params_admin)
-      redirect_to admin_users_path, notice: "ユーザー情報を更新しました"
+      flash[:success] = "ユーザー情報を更新しました"
+    elsif User.where(admin: true).count == 1 && !@user.admin
+      flash[:alert] = "管理者が最後の１人のため、権限を変更できません"
     else
-      flash.now[:danger] = '更新に失敗しました'
-      render :edit
+      flash[:danger] = '更新に失敗しました'
     end
+    redirect_to admin_users_path
   end
 
   def destroy
     set_admin
     if @user.destroy
       flash[:success] = "削除しました"
-      redirect_to admin_users_path
+    elsif User.exists?(admin: true) && @user.admin
+      flash[:alert] = "管理者が最後の１人のため、削除できません"
     else
       flash[:alert] = "削除に失敗しました"
-      redirect_to admin_users_path
     end
+    redirect_to admin_users_path
   end
 
   private

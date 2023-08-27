@@ -1,6 +1,6 @@
 class TasksController < ApplicationController
-
   skip_before_action :logged_in, only:[:new]
+
   def index
     @tasks = Task.all.order(created_at: :desc).page(params[:page]).per(10)
 
@@ -65,7 +65,7 @@ class TasksController < ApplicationController
   end
 
   def task_params
-    params.require(:task).permit(:title, :content, :end_time, :status, :priority)
+    params.require(:task).permit(%i[title content end_time status priority user_id])
   end
 
 end
