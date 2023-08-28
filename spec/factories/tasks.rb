@@ -15,12 +15,14 @@ FactoryBot.define do
     content { 'test_content2' }
     end_time { '002023-8-15T00:00'}
     status { :completed }
+    priority { :medium }
 
     factory :third_task, class: Task do
       title { 'task3' }
       content { 'test_content3' }
       end_time { '002023-08-30T00:00'}
       status { :not_started }
+      priority { :high }
 
     factory :fourth_task, class: Task do
       title { 'task4' }

@@ -1,22 +1,31 @@
 class TasksController < ApplicationController
   skip_before_action :logged_in, only:[:new]
+  before_action :login_owner, only: [:show]
 
   def index
-    @tasks = Task.all.order(created_at: :desc).page(params[:page]).per(10)
+    @tasks = Task.all.order(created_at: :desc)
 
     if params[:task_limit]
-      @tasks = current_user.tasks.task_limit.page(params[:id]).per(10)
-    elsif params[:user_tasks]
-      @tasks = current_user.tasks.page(params[:page]).per(10)
-    elsif params[:rank]
-      @tasks = current_user.tasks.rank.page(params[:page]).per(10)
-    elsif params[:task] && params[:task][:search].present? && params[:task][:status].present?
-      @tasks = current_user.tasks.task_and_status(params[:task][:search], params[:task][:status]).page(params[:page]).per(10)
-    elsif params[:task].present? && params[:task][:search].present?
-      @tasks = current_user.tasks.with_title(params[:task][:search]).page(params[:page]).per(10)
-    elsif params[:task].present? && params[:task][:status].present?
-      @tasks = current_user.tasks.with_status(params[:task][:status]).page(params[:page]).per(10)
+      @tasks = Task.task_limit
     end
+    if params[:user_tasks]
+      @tasks = current_user.tasks
+    end
+    if params[:rank]
+      @tasks = Task.rank
+    end
+    if params[:task].present?
+      if params[:task][:search].present? && params[:task][:status].present?
+        @tasks = @tasks.task_and_status(params[:task][:search], params[:task][:status])
+      end
+      if params[:task][:search].present?
+        @tasks = @tasks.with_title(params[:task][:search])
+      end
+      if params[:task][:status].present?
+        @tasks = @tasks.with_status(params[:task][:status])
+      end
+    end
+    @tasks = @tasks.page(params[:id]).per(10)
   end
 
   def new
@@ -39,12 +48,12 @@ class TasksController < ApplicationController
 
   def update
     set_task
-   if @task.update(task_params)
-    redirect_to tasks_path, notice: "タスクを更新しました"
-   else
-    flash.now[:danger] = '更新に失敗しました'
-    render :edit
-   end
+      if @task.update(task_params)
+        redirect_to tasks_path, notice: "タスクを更新しました"
+      else
+        flash.now[:danger] = '更新に失敗しました'
+        render :edit
+      end
   end
 
   def show
@@ -66,6 +75,13 @@ class TasksController < ApplicationController
 
   def task_params
     params.require(:task).permit(%i[title content end_time status priority user_id])
+  end
+
+  def login_owner
+    task = Task.find_by(id: params[:id])
+      if current_user != task.user && !current_user.admin
+      redirect_to tasks_path, alert: "他のユーザー情報を観覧する権限がありません"
+      end
   end
 
 end

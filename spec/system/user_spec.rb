@@ -79,10 +79,67 @@ RSpec.describe 'ユーザー登録機能のテスト', type: :system do
       let!(:user1) { FactoryBot.create(:second_user)}
       it "管理画面に遷移できること" do
         visit new_session_path
+        fill_in 'Email', with: 'first@exam.com'
+        fill_in 'Password', with: '1'
+        click_on 'Log in'
+        visit admin_users_path(wait: 30)
+        expect(page).to have_content 'ユーザー管理ページ'
+      end
+    end
+
+    context '一般ユーザーが管理画面にアクセスした場合' do
+      let!(:user1) { FactoryBot.create(:second_user)}
+      it "管理画面に遷移できない" do
+        visit new_session_path
         fill_in 'Email', with: 'second@exam.com'
         fill_in 'Password', with: '2'
         click_on 'Log in'
-        expect(page).to have_content 'second'
+        visit admin_users_path(wait: 30)
+        expect(page).to have_content '権限がありません'
       end
     end
+
+    context '管理者がユーザーの詳細画面にアクセスした場合' do
+      let!(:user1) { FactoryBot.create(:second_user)}
+      it "ユーザーの詳細画面に遷移できること" do
+        visit new_session_path
+        fill_in 'Email', with: 'first@exam.com'
+        fill_in 'Password', with: '1'
+        click_on 'Log in'
+        visit user_path(user1, wait: 30)
+        expect(page).to have_content 'second@exam.com'
+      end
+    end
+
+    context '管理者がユーザー編集画面にアクセスして' do
+      let!(:user1) { FactoryBot.create(:second_user)}
+      it "ユーザーを編集できること" do
+        visit new_session_path
+        fill_in 'Email', with: 'first@exam.com'
+        fill_in 'Password', with: '1'
+        click_on 'Log in'
+        visit edit_admin_user_path(user1)
+        fill_in "名前", with: 'moge'
+        fill_in "Email", with: 'moge@exam.com'
+        fill_in "Password", with: 'moge'
+        fill_in "Password confirmation", with: 'moge'
+        click_on "Create  account"
+        expect(page).to have_content 'moge@exam.com'
+      end
+    end
+
+    context '管理者がユーザーの削除ボタンを押した場合' do
+      let!(:user1) { FactoryBot.create(:second_user)}
+      it "ユーザーが削除できること" do
+        visit new_session_path
+        fill_in 'Email', with: 'first@exam.com'
+        fill_in 'Password', with: '1'
+        click_on 'Log in'
+        visit edit_admin_user_path(user1, wait: 30)
+        click_on '削除'
+        page.driver.browser.switch_to.alert.accept
+        expect(page).to have_no_content  "second@exam.com"
+      end
+    end
+  end
 end

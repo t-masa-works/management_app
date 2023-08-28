@@ -1,9 +1,14 @@
 require 'rails_helper'
 RSpec.describe 'タスク管理機能', type: :system do
-
+  let!(:user) { FactoryBot.create(:user) }
+  let!(:task1) { FactoryBot.create(:task, user: user) }
+  let!(:task2) { FactoryBot.create(:second_task, user: user)}
+  let!(:task3) { FactoryBot.create(:third_task, user: user)}
   before do
-    FactoryBot.create(:task)
-    FactoryBot.create(:second_task)
+    visit new_session_path
+    fill_in 'Email', with: 'first@exam.com'
+    fill_in 'Password', with: '1'
+    click_on 'Log in'
   end
 
   describe '新規作成機能' do
@@ -66,28 +71,25 @@ RSpec.describe 'タスク管理機能', type: :system do
   end
 
   context 'タスクが作成日時の降順に並んでいる場合' do
-    let!(:task3) { FactoryBot.create(:third_task)}
     it '新しいタスクが一番上に表示される' do
-      visit tasks_path
+      visit tasks_path(user)
       tasks = all('tbody tr')
       tasks_text = tasks.first.text
-      expect(tasks_text).to include(task3.title)
+      expect(tasks_text).to include(task1.title)
     end
   end
 
   context '終了期限の降順でソートした場合' do
-    let!(:task4) { FactoryBot.create(:fourth_task)}
     it '終了期限が一番遅いタスクが一番上に表示される' do
       visit tasks_path
       click_link '終了期限でソート'
       tasks = all('tbody tr', wait: 30)
       tasks_text = tasks.first.text
-      expect(tasks_text).to include(task4.title)
+      expect(tasks_text).to include(task3.title)
     end
   end
 
   context '優先度の降順でソートした場合' do
-    let!(:task4) { FactoryBot.create(:fourth_task)}
     it '優先度が一番高いタスクが一番上に表示される' do
       visit tasks_path
       click_link '優先順位でソート'

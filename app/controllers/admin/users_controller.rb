@@ -1,5 +1,5 @@
 class Admin::UsersController < ApplicationController
-  # before_action :admin_user
+  before_action :admin_user
   skip_before_action :logged_in
 
   def index

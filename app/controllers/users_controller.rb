@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   skip_before_action :login_required, only: %i[new create]
+  before_action :login_owner, only: [:show]
 
   def new
     @user = User.new
@@ -28,5 +29,12 @@ class UsersController < ApplicationController
 
   def user_params
     params.require(:user).permit(%i[name email password password_confirmation])
+  end
+
+  def login_owner
+    user = User.find_by(id: params[:id])
+      if current_user != user && !current_user.admin
+      redirect_to tasks_path, alert: "他のユーザー情報を観覧する権限がありません"
+      end
   end
 end
