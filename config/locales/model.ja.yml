@@ -2,6 +2,7 @@ ja:
   activerecord:
     models:
       task: タスク
+      users: ユーザー
     attributes:
       task:
         title: タスク
@@ -17,3 +18,5 @@ ja:
         low: 低
         medium: 中
         high: 高
+      user:
+        name: 名前

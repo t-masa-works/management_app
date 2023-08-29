@@ -1,9 +1,9 @@
 <h1 class="shadow-lg p-3 mb-5 bg-white rounded"><%=t('view.show')%></h1>
 
-<p><%= t('view.title') %>：<%= @task.title %></p>
-<p><%= t('view.content') %>：<%= @task.content %></p>
-<p><%= t('view.end_time') %>：<%= format_datetime(@task.end_time) %></p>
-<p><%= t('view.status') %>：<%= @task.human_attribute_enum(:status) %></p>
+<p><%= t 'view.title' %>：<%= @task.title %></p>
+<p><%= t 'view.content' %>：<%= @task.content %></p>
+<p><%= t 'view.end_time' %>：<%= l @task.end_time %></p>
+<p><%= t 'view.status' %>：<%= @task.human_attribute_enum(:status) %></p>
 <p><%= t 'view.priority' %>：<%= @task.human_attribute_enum(:priority) %></p>
 
-<%= link_to t('view.list'), tasks_path %>
+<%= link_to (t 'view.list') , tasks_path %>
