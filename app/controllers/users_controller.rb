@@ -32,7 +32,7 @@ class UsersController < ApplicationController
   end
 
   def login_owner
-    user = User.find_by(id: params[:id])
+    user = User.find(params[:id])
       if current_user != user && !current_user.admin
       redirect_to tasks_path, alert: "他のユーザー情報を観覧する権限がありません"
       end
