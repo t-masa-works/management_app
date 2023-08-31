@@ -30,6 +30,10 @@
       <td><%= form.label :priority %></td>
       <td><%= form.select :priority, Task.enum_options_for_select(:priority) %></td>
     </tr>
+     <tr>
+     <td></td>
+      <td><%= form.collection_check_boxes(:tag_ids, Tag.all, :id, :tag_name) %></td>
+    </tr>
   </table>
 
   <p class="mt-4"><%= form.submit "タスクを保存", data: {confirm: "タスクを保存してもいいですか？"} %></p>

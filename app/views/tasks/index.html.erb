@@ -9,6 +9,7 @@
   <div class="row justify-content-md-center">
     <%= form.text_field :search , id: 'search_input', placeholder: 'タスク名', class: "form-control form-control-lg col-md-4" %>
     <%= form.select :status, Task.enum_options_for_select(:status), include_blank: true, class: "col-md-3" %>
+    <%= form.select("tag_id", Tag.pluck(:tag_name, :id), { include_blank: true }) %>
     <%= form.submit 'Search', name: nil %>
   </div>
 <% end %>
@@ -24,6 +25,7 @@
       <th><%= t 'view.status' %></th>
       <th><%= t 'view.priority' %></th>
       <th><%= t 'view.access'  %></th>
+      <th><%= "タグ" %></th>
     </tr>
   </thead>
 
@@ -38,6 +40,10 @@
         <td><%= task.human_attribute_enum(:status) %></td>
         <td class="<%= priority_class(task.priority) %> display-4" ><%= task.human_attribute_enum(:priority)%></td>
         <td><%= link_to t('view.show'), task, data: { confirm: "#{index}のタスクを確認しますか？" } %></td>
+        <td ><% task.taggings.each do |tagging| %>
+              <p class="badge bg-info text-light m-1"><%= tagging.tag.tag_name %></p>
+            <% end %>
+        </td>
       </tr>
     <% end %>
   </tbody>

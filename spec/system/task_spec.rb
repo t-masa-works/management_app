@@ -4,6 +4,7 @@ RSpec.describe 'タスク管理機能', type: :system do
   let!(:task1) { FactoryBot.create(:task, user: user) }
   let!(:task2) { FactoryBot.create(:second_task, user: user)}
   let!(:task3) { FactoryBot.create(:third_task, user: user)}
+
   before do
     visit new_session_path
     fill_in 'Email', with: 'first@exam.com'
@@ -48,7 +49,7 @@ RSpec.describe 'タスク管理機能', type: :system do
         expect(page).to have_content '完了'
       end
     end
-    
+
     context 'タイトルのあいまい検索とステータス検索をした場合' do
       it "検索キーワードをタイトルに含み、かつステータスに完全一致するタスク絞り込まれる" do
         visit tasks_path
