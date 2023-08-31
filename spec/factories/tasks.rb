@@ -7,6 +7,7 @@ FactoryBot.define do
     end_time { '002023-08-01T00:00'}
     status { :not_started }
     priority { :low }
+
   end
   # 作成するテストデータの名前を「second_task」とします
   # （存在しないクラス名の名前をつける場合、オプションで「このクラスのテストデータにしてください」と指定します）
@@ -16,6 +17,7 @@ FactoryBot.define do
     end_time { '002023-8-15T00:00'}
     status { :completed }
     priority { :medium }
+  end
 
     factory :third_task, class: Task do
       title { 'task3' }
@@ -23,6 +25,7 @@ FactoryBot.define do
       end_time { '002023-08-30T00:00'}
       status { :not_started }
       priority { :high }
+    end
 
     factory :fourth_task, class: Task do
       title { 'task4' }
@@ -32,6 +35,4 @@ FactoryBot.define do
       priority { :high }
       end
 
-    end
-  end
 end

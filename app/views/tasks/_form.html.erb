@@ -31,7 +31,7 @@
       <td><%= form.select :priority, Task.enum_options_for_select(:priority) %></td>
     </tr>
      <tr>
-     <td></td>
+      <td><%= form.label 'タグ' %></td>
       <td><%= form.collection_check_boxes(:tag_ids, Tag.all, :id, :tag_name) %></td>
     </tr>
   </table>

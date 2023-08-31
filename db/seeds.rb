@@ -6,3 +6,4 @@ User.create(name: "tobe", email: "tobe@gmail.com", password: 'masanori', passwor
 Tag.create!(tag_name: "提出物")
 Tag.create!(tag_name: "行事")
 Tag.create!(tag_name: "会議")
+

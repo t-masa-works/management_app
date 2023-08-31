@@ -30,7 +30,7 @@ class Admin::UsersController < ApplicationController
     elsif User.where(admin: true).count == 1 && !@user.admin
       flash[:alert] = "管理者が最後の１人のため、権限を変更できません"
     else
-      flash[:danger] = '更新に失敗しました'
+      flash.now[:danger] = '更新に失敗しました'
     end
     redirect_to admin_users_path
   end
