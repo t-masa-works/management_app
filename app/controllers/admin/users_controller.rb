@@ -30,7 +30,7 @@ class Admin::UsersController < ApplicationController
     elsif User.where(admin: true).count == 1 && !@user.admin
       flash[:alert] = "管理者が最後の１人のため、権限を変更できません"
     else
-      flash[:danger] = '更新に失敗しました'
+      flash.now[:danger] = '更新に失敗しました'
     end
     redirect_to admin_users_path
   end
@@ -39,7 +39,7 @@ class Admin::UsersController < ApplicationController
     set_admin
     if @user.destroy
       flash[:success] = "削除しました"
-    elsif User.exists?(admin: true) && @user.admin
+    elsif User.where(admin: true).count == 1 && @user.admin
       flash[:alert] = "管理者が最後の１人のため、削除できません"
     else
       flash[:alert] = "削除に失敗しました"
@@ -58,7 +58,7 @@ class Admin::UsersController < ApplicationController
   end
 
   def admin_user
-    redirect_to new_session_path, alert: "権限がありません" unless current_user.admin?
+    redirect_to tasks_path, alert: "権限がありません" unless current_user.admin?
   end
 
 end

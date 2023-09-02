@@ -24,8 +24,11 @@ class TasksController < ApplicationController
       if params[:task][:status].present?
         @tasks = @tasks.with_status(params[:task][:status])
       end
+      if params[:task][:tag_id].present?
+        @tasks = Tag.find(params[:task][:tag_id]).tasks
+      end
     end
-    @tasks = @tasks.page(params[:id]).per(10)
+    @tasks = @tasks.page(params[:page]).per(5)
   end
 
   def new
@@ -74,11 +77,11 @@ class TasksController < ApplicationController
   end
 
   def task_params
-    params.require(:task).permit(%i[title content end_time status priority user_id])
+    params.require(:task).permit(%i[title content end_time status priority user_id tag_name], tag_ids: [])
   end
 
   def login_owner
-    task = Task.find_by(id: params[:id])
+    task = Task.find(params[:id])
       if current_user != task.user && !current_user.admin
       redirect_to tasks_path, alert: "他のユーザー情報を観覧する権限がありません"
       end

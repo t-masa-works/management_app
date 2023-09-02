@@ -19,7 +19,7 @@
   <tbody>
     <% @users.eager_load(:tasks).each.with_index(1) do |user, index| %>
       <tr>
-        <% if user.admin == true %>
+        <% if user.admin %>
           <td><%= user.id %></td>
           <td><%= user.name %></td>
           <td><%= user.email %></td>
@@ -49,7 +49,7 @@
   <tbody>
     <% @users.eager_load(:tasks).each.with_index(1) do |user, index| %>
       <tr>
-        <% if user.admin == false %>
+        <% if !user.admin %>
           <td><%= user.id %></td>
           <td><%= user.name %></td>
           <td><%= user.email %></td>

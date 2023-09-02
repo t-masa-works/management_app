@@ -19,7 +19,7 @@ def admin_cannot_update
 end
 
 def admin_cannot_delete
-  if User.exists?(admin: true) && self.admin
+  if User.where(admin: true).count == 1 && self.admin
     throw :abort
   end
 end

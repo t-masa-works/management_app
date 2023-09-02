@@ -12,12 +12,4 @@ class ApplicationController < ActionController::Base
   def logged_in
     redirect_to tasks_path(current_user) if current_user
   end
-
-  def login_owner
-    user = User.find_by(id: params[:id])
-    task = Task.find_by(id: params[:id])
-    if current_user != task.user && !current_user.admin
-    redirect_to tasks_path, alert: "他のユーザー情報を観覧する権限がありません"
-    end
-  end
 end

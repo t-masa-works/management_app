@@ -35,7 +35,7 @@ RSpec.describe 'ユーザー登録機能のテスト', type: :system do
         expect(page).to have_content 'second'
       end
     end
-    
+
     context 'ログインして、Profileへのリンクを押した場合' do
       let!(:user1) { FactoryBot.create(:second_user)}
       it "マイページへ飛べること" do
