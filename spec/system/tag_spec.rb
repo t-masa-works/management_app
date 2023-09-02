@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "TagSpec.rbs", type: :system do
+RSpec.describe "タグ機能のテスト", type: :system do
   let!(:tag1) { FactoryBot.create(:tag) }
   let!(:tag2) { FactoryBot.create(:second_tag) }
   let!(:tag3) { FactoryBot.create(:third_tag)}

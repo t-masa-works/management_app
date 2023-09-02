@@ -1,13 +1,13 @@
 <%= form_with(model:@task ,local:true) do |form| %>
   <% if @task.errors.any? %>
-     <div id="error_explanation">
+    <div id="error_explanation">
       <h2><%= @task.errors.count %>件のエラーがあります。</h2>
       <ul>
         <% @task.errors.full_messages.each do |msg| %>
           <li><%= msg %></li>
         <% end %>
       </ul>
-  <% end %>
+    <% end %>
     </div>
   <table>
     <tr>
@@ -30,7 +30,7 @@
       <td><%= form.label :priority %></td>
       <td><%= form.select :priority, Task.enum_options_for_select(:priority) %></td>
     </tr>
-     <tr>
+    <tr>
       <td><%= form.label 'タグ' %></td>
       <td><%= form.collection_check_boxes(:tag_ids, Tag.all, :id, :tag_name) %></td>
     </tr>
